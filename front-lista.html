@@ -1,0 +1,51 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../paper-card/paper-card.html">
+
+<dom-module id="front-lista">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      paper-card{
+          margin-right: 1px;
+          display: inline-block; 
+          margin-right: 1px;
+          display: inline-block;box-sizing: border-box;
+          width: 450px;
+          height: 100%;
+      }
+    </style>
+    <paper-card>
+
+    </paper-card>
+  </template>
+
+  <script>
+    /**
+     * `front-lista`
+     * aqui se tiene que ver la lista
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class FrontLista extends Polymer.Element {
+      static get is() { return 'front-lista'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'front-lista'
+          },
+          cambio:{
+            type:Boolean,
+            notify:true
+          }
+        };
+      }
+    }
+
+    window.customElements.define(FrontLista.is, FrontLista);
+  </script>
+</dom-module>
