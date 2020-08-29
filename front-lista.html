@@ -1,5 +1,7 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../paper-card/paper-card.html">
+<link rel="import" href="../polymer/lib/elements/dom-repeat.html">
+
 
 <dom-module id="front-lista">
   <template>
@@ -7,17 +9,65 @@
       :host {
         display: block;
       }
-      paper-card{
-          margin-right: 1px;
-          display: inline-block; 
-          margin-right: 1px;
-          display: inline-block;box-sizing: border-box;
-          width: 450px;
-          height: 100%;
+
+      .imgRequired {
+          width: 25px;
+      }
+
+      paper-card {
+        --paper-card-header-text: {
+            background-color: #9adc3b;
+        }
+        
+        --paper-card: {
+            width: 100%;
+        }
+      }
+
+      .headerCard {
+        display: grid;
+        grid-template-columns: 87% 13%;
+        --paper-card-content: {
+            background-color: #9adc3b;
+        }
+      }
+
+      .aa {
+        display: grid;
+        grid-template-columns: 95% 5%;
+      }
+
+      .text-content {
+        hyphens: auto;
+      }
+
+      .buttonDelete {
+        border: 2px solid rgb(182, 41, 41);
+        border-radius: 40px;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        color: white;
+        background-color: rgb(182, 41, 41);
+        margin-top: 1em;
       }
     </style>
     <paper-card>
-
+      <div class="card-content headerCard">
+          <p>ToDo List by Polymer 2</p>
+          <paper-button >
+            <img class="imgRequired" src="../test/img/recycle-bin.svg" alt="">
+          </paper-button>
+      </div>
+      <div class="card-content">
+          <template is="dom-repeat" items="{{actividades}}">
+            <paper-card>
+              <div class="card-content aa">
+                  <p class="text-content"> {{item.actividad}}</p>    
+              </div>
+            </paper-card>
+          </template>
+      </div>
     </paper-card>
   </template>
 
@@ -38,12 +88,23 @@
             type: String,
             value: 'front-lista'
           },
-          cambio:{
+          textobool:{
             type:Boolean,
             notify:true
+          },
+          actividades:{
+            type:Array,
+            value: [
+              {actividad:'1'},{actividad:'1'},{actividad:'1'}
+            ] 
           }
         };
       }
+      agregaactividad(actividades) {
+        this.listado.push({ content: content, id: this.listado.length });
+      }
+      
+      
     }
 
     window.customElements.define(FrontLista.is, FrontLista);
