@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../paper-card/paper-card.html">
 <link rel="import" href="../polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
 
 
 <dom-module id="front-lista">
@@ -55,19 +56,31 @@
     <paper-card>
       <div class="card-content headerCard">
           <p>ToDo List by Polymer 2</p>
-          <paper-button >
+          <paper-button on-click="borrarTodo">
             <img class="imgRequired" src="../test/img/recycle-bin.svg" alt="">
           </paper-button>
       </div>
-      <div class="card-content">
+
+      <template is="dom-if" if="[[!actividades.length]]">
+        <div class="mensaje" style="background: white; border-radius: 0px 0px 6px 6px;">
+            {{textobool}}
+        </div>
+      </template>
+
+      <template is="dom-if" if="[[actividades.length]]">
+
           <template is="dom-repeat" items="{{actividades}}">
             <paper-card>
               <div class="card-content aa">
                   <p class="text-content"> {{item.actividad}}</p>    
               </div>
             </paper-card>
+            <button class="todo-remove-btn" on-click="borrar">
+              <img src="../test/img/remove.svg" style="width: 28px;" class="trash-btn" id="remove">
+            </button>
           </template>
-      </div>
+
+      </template>
     </paper-card>
   </template>
 
@@ -89,19 +102,29 @@
             value: 'front-lista'
           },
           textobool:{
-            type:Boolean,
-            notify:true
+            type: String,
+            value: "No hay ToDo's, tomate un café"
           },
           actividades:{
             type:Array,
             value: [
-              {actividad:'1'},{actividad:'1'},{actividad:'1'}
+              {}
             ] 
           }
         };
       }
-      agregaactividad(actividades) {
-        this.listado.push({ content: content, id: this.listado.length });
+      
+      borrar(e) {
+          const item = e.target;
+          const todo = item.parentElement;
+          todo.remove();
+          //todo.remove();
+        }
+      borrarTodo() {
+          if (confirm("¿Estas seguro que deseas borrar toda la lista?")) {
+              localStorage.clear();
+              location.reload();
+          }
       }
       
       
